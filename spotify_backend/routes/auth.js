@@ -25,7 +25,7 @@ router.post("/register" , async(req,res)=>{
     // imp: we dont store passwords in plain text
     // need to convert password to hashed pwd
 
-    const hashedPassword = bcrypt.hash(password,10);
+    const hashedPassword = await bcrypt.hash(password,10);
     const newUserData = {email , password:hashedPassword, 
         firstName , lastName , username};
 
@@ -41,3 +41,30 @@ router.post("/register" , async(req,res)=>{
     delete userToReturn.password;
     return res.status(200).json(userToReturn);
 });
+
+router.get("/login" , async(req,res)=>{
+    // s1: get email and pwd sent by user from req.body
+    // s-2 : check if user with the email exists
+    // s-3: user exists then check pwd 
+    // s-4 credentials are correct return token to the user
+    const {email , password} = req.body;
+
+    const user = await user.findOne({email:email});
+    if(!user){
+        return res.status(403).json({err:"Invalid Credentials"});
+    }
+    // check for password :TRICKY
+    const isPasswordValid = await bcrypt.compare(password , user.password);
+    if(!isPasswordValid){
+        return res.status(403).json({err:"Invalid Credentials"});
+    }
+
+    // if all correct then generate token and give it back
+
+    const token= await getToken(user.email , user);
+    const userToReturn = {...user.toJSON(), token};
+    delete userToReturn.password;
+    return res.status(200).json(userToReturn);
+});
+
+module.exports = router;

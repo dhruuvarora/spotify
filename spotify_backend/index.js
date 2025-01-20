@@ -3,10 +3,13 @@ const { default: mongoose } = require("mongoose");
 const JwtStrategy = require('passport-jwt').Strategy,
 ExtractJwt = require('passport-jwt').ExtractJwt;
 const passport = require("passport");
+const authRoutes = require("./routes/auth");
 const User = require('./models/User');
 const app = express();
 require("dotenv").config();
 const port = 8000;
+
+app.use(express.json());
 
 // connect mongodb to node app
 mongoose.connect(`mongodb+srv://dhruvarora862:${process.env.MONGO_PASSWORD}@cluster0.pk0em.mongodb.net/spotify?retryWrites=true&w=majority&appName=Cluster0`)
@@ -41,6 +44,8 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 app.get("/", (req, res) => {
     res.send("Hello World");
 });
+
+app.use("/auth", authRoutes);
 
 app.listen(port, () => {
     console.log("App is running on Port " + port);

@@ -1,8 +1,9 @@
-const jwt = require("jwt");
+const jwt = require("jsonwebtoken");
+require("dotenv");
 exports = {}
 
 exports.getToken = async(email,user) =>{
-    const token = ExtractJwt.sign({identifier:user._id});
+    const token = jwt.sign({identifier:user._id}, process.env.JWT_SECRET);
     return token;
 }
 
