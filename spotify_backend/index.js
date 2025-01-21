@@ -4,9 +4,10 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
 const authRoutes = require("./routes/auth");
-const User = require("./models/User"); // Ensure the correct path to your User model
+const User = require("./models/User");
 const songRoutes = require("./routes/song");
 require("dotenv").config();
+
 const app = express();
 const port = 8000;
 
@@ -32,9 +33,9 @@ const opts = {
 
 passport.use(
     new JwtStrategy(opts, async (jwt_payload, done) => {
+        console.log("JWT Payload:", jwt_payload);  // Log to debug the payload
         try {
-            // Use async/await to find the user
-            const user = await User.findOne({ _id: jwt_payload.sub }); // Ensure your payload has `sub` as the user ID
+            const user = await User.findOne({ _id: jwt_payload.identifier });  // Ensure correct field
             if (user) {
                 return done(null, user);
             } else {
