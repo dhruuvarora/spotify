@@ -77,7 +77,7 @@ router.post("/add/song" , passport.authenticate("jwt" , {session:false}) , async
 
     // step 1 : check if current user owns playlist || is a collaborator
 
-    if(playlist.owner != currentUser._id && !playlist.collaborators.includes(currentUser._id)){
+    if(!playlist.owner.equals(currentUser._id) && !playlist.collaborators.includes(currentUser._id)){
         return res.status(400).json({error:"Not Allowed"})
     }
 
