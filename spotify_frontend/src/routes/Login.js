@@ -1,3 +1,5 @@
+// src/routes/Login.js
+
 import { Icon } from "@iconify/react";
 import TextInput from "../components/shared/TextInput";
 import PasswordInput from "../components/shared/PasswordInput";
@@ -13,20 +15,42 @@ const LoginComponent = () => {
 
                 {/* Inouts email and password && signup button */}
 
-                <div className="font-bold mb-12 ">
+                <div className="font-bold mb-6 ">
                     To continue Login To Spotify
                 </div>
 
-                <TextInput label="Email Address or Username" placeholder="Email Address or Username"/>
+                <TextInput label="Email Address or Username" placeholder="Email Address or Username"
+                className="my-6"
+                />
                  {/* Password input */}
 
             <PasswordInput label="Password" placeholder="Password"/>
 
+            <div className=" w-full flex items-center justify-end my-8">
+
+            <button className="bg-green-500 font-semibold p-3 px-10 rounded-full">
+                Login
+            </button>
+
             </div>
 
-           
+            <div className="w-full border border-solid border-gray-200">
+            </div>
+
+            <div className="my-6 font-semibold text-xl">
+                Don't have an Account ?
+            </div>
+
+            <div className="border border-gray-500 w-full flex items-center justify-center py-4 rounded-full text-gray-500 font-bold">
+                Signup for Spotify
+            </div>
+        
+
+            </div>
 
         </div>
+
+       
     );
 };
 

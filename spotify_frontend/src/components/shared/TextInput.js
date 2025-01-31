@@ -1,11 +1,13 @@
-const TextInput = ({label , placeholder}) => {
+// src/components/shared/TextInput.js
+
+const TextInput = ({label , placeholder , className}) => {
     return (
-        <div className="textInputDiv flex flex-col space-y-2 w-full">
+        <div className={`textInputDiv flex flex-col space-y-2 w-full ${className}`}>
             <label htmlFor={label} className="font-bold">{label}</label>
             <input
                 type="text"
                 placeholder={placeholder}
-                className="p-2 border border-gray-400 border-solid rounded placeholder-gray-600"
+                className="p-3 border border-gray-400 border-solid rounded placeholder-gray-600"
                 id={label}
             />
         </div>
