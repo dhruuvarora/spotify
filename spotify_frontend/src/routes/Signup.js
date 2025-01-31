@@ -5,7 +5,7 @@ import TextInput from "../components/shared/TextInput";
 import PasswordInput from "../components/shared/PasswordInput";
 import { Link } from "react-router-dom";
 
-const LoginComponent = () => {
+const SignupComponent = () => {
     return (
         <div className="w-full h-full flex flex-col items-center">
             <div className="logo p-5 border-b border-solid border-gray-200 w-full flex justify-center">
@@ -16,21 +16,30 @@ const LoginComponent = () => {
 
                 {/* Inouts email and password && signup button */}
 
-                <div className="font-bold mb-6 ">
-                    To continue Login To Spotify
+                <div className="font-bold mb-6 text-2xl">
+                   Sign Up to start Listening
                 </div>
 
-                <TextInput label="Email Address or Username" placeholder="Email Address or Username"
+                <TextInput label="Email Address" placeholder="Enter your Email"
                 className="my-6"
                 />
-                 {/* Password input */}
 
-            <PasswordInput label="Password" placeholder="Password"/>
 
-            <div className=" w-full flex items-center justify-end my-8">
+<TextInput label="Confirm Email Address" placeholder="Confirm Email Address"
+                className="mb-6"
+                />
+               
+
+            <PasswordInput label="Create Password" placeholder="Enter a Strong Password" className="my-6"/>
+
+            <TextInput label="What should we call you ?" placeholder="Enter your Profile name"
+                className="my-6"
+                />
+
+            <div className=" w-full flex items-center justify-center my-8">
 
             <button className="bg-green-500 font-semibold p-3 px-10 rounded-full">
-                Login
+                Signup
             </button>
 
             </div>
@@ -39,11 +48,12 @@ const LoginComponent = () => {
             </div>
 
             <div className="my-6 font-semibold text-xl">
-                Don't have an Account ?
+               Already have an Account ?
             </div>
 
             <div className="border border-gray-500 w-full flex items-center justify-center py-4 rounded-full text-gray-500 font-bold">
-               <Link to = "/signup">Signup for Spotify
+               <Link to="/login">
+               Login Instead
                </Link> 
             </div>
         
@@ -56,4 +66,4 @@ const LoginComponent = () => {
     );
 };
 
-export default LoginComponent;
+export default SignupComponent;

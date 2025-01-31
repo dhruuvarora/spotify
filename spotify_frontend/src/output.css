@@ -1,4 +1,6 @@
-/*! tailwindcss v2.2.19 | MIT License | https://tailwindcss.com */
+/* src/index.css */
+
+/* ! tailwindcss v2.2.19 | MIT License | https://tailwindcss.com */
 
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -22261,6 +22263,10 @@ video {
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.font-poppins {
+  font-family: poppins, sans-serif;
 }
 
 .text-xs {
@@ -51874,6 +51880,10 @@ code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .sm\:font-poppins {
+    font-family: poppins, sans-serif;
+  }
+
   .sm\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -81117,6 +81127,10 @@ code {
 
   .md\:font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .md\:font-poppins {
+    font-family: poppins, sans-serif;
   }
 
   .md\:text-xs {
@@ -110364,6 +110378,10 @@ code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .lg\:font-poppins {
+    font-family: poppins, sans-serif;
+  }
+
   .lg\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -139609,6 +139627,10 @@ code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .xl\:font-poppins {
+    font-family: poppins, sans-serif;
+  }
+
   .xl\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -168852,6 +168874,10 @@ code {
 
   .\32xl\:font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .\32xl\:font-poppins {
+    font-family: poppins, sans-serif;
   }
 
   .\32xl\:text-xs {
