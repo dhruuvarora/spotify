@@ -42,14 +42,14 @@ router.post("/register" , async(req,res)=>{
     return res.status(200).json(userToReturn);
 });
 
-router.get("/login" , async(req,res)=>{
+router.post("/login" , async(req,res)=>{
     // s1: get email and pwd sent by user from req.body
     // s-2 : check if user with the email exists
     // s-3: user exists then check pwd 
     // s-4 credentials are correct return token to the user
     const {email , password} = req.body;
 
-    const user = await user.findOne({email:email});
+    const user = await User.findOne({email:email});
     if(!user){
         return res.status(403).json({err:"Invalid Credentials"});
     }
