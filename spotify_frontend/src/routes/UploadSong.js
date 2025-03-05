@@ -2,6 +2,7 @@ import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
 import { Icon } from "@iconify/react";
 import TextwithHover from "../components/shared/TextwithHover";
+import TextInput from "../components/shared/TextInput";
 
 const UploadSong = () => {
     return (
@@ -61,7 +62,21 @@ const UploadSong = () => {
 
                 {/* Other portion besides navbar */}
                 <div className="content p-8 overflow-auto">
-                    
+                    <div className="text-2xl font-semibold mb-5 text-white mt-8">
+                        Upload Your Music
+                    </div>
+                    <div className="w-2/3 flex space-x-3">
+                        <div className="w-1/2">
+                    <TextInput label="Name" labelClassName={"text-white"}
+                    placeholder="Name"
+                    />
+                        </div>
+                        <div className="w-1/2">
+                    <TextInput label="Thumbnail" labelClassName={"text-white"}
+                    placeholder="Thumbnail"
+                    />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
