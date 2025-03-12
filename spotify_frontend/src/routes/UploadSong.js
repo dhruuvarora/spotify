@@ -13,11 +13,19 @@ const UploadSong = () => {
     const [thumbnail, setThumbnail] = useState("");
     const [playlistUrl, setPlaylistUrl] = useState("");
     const [uploadedSongFileName, setUploadedSongFileName] = useState("");
+    const navigate = useNavigate();
 
     const submitSong = async() =>{
         const data = {name, thumbnail, track:playlistUrl};
         const response = await makeAuthenticatedPOSTRequest("/song/create",data);
         console.log(response);
+
+        if(response.err){
+            alert("could not create song")
+            return;
+        }
+        alert("Success");
+        navigate("/home");
     }
 
     const uploadImageWidget = () => {
