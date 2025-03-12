@@ -1,11 +1,50 @@
+import { useState } from "react";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
 import { Icon } from "@iconify/react";
 import TextwithHover from "../components/shared/TextwithHover";
 import TextInput from "../components/shared/TextInput";
 import CloudinaryUpload from "../components/shared/CloudinaryUpload";
+import { makeAuthenticatedPOSTRequest } from '../utils/serverHelpers';
+
 
 const UploadSong = () => {
+    const [name, setName] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
+    const [playlistUrl, setPlaylistUrl] = useState("");
+    const [uploadedSongFileName, setUploadedSongFileName] = useState("");
+
+    const submitSong = async() =>{
+        const data = {name, thumbnail, track:playlistUrl};
+        const response = await makeAuthenticatedPOSTRequest("/song/create",data);
+        console.log(response);
+    }
+
+    const uploadImageWidget = () => {
+        if (window.cloudinary && window.cloudinary.createUploadWidget) {
+            const myWidget = window.cloudinary.createUploadWidget(
+                {
+                    cloudName: 'dgbxpssni',
+                    uploadPreset: 'v4cloud',
+                    sources: ['local', 'url', 'camera'],
+                    multiple: false,
+                    folder: 'spotify_clone',
+                    resourceType: 'auto'
+                },
+                (error, result) => {
+                    if (!error && result && result.event === "success") {
+                        console.log('Done! Here is the image info: ', result.info);
+                        setPlaylistUrl(result.info.secure_url);
+                        setUploadedSongFileName(result.info.original_filename);
+                    }
+                }
+            );
+            myWidget.open();
+        } else {
+            console.error("Cloudinary widget is not loaded yet");
+        }
+    };
+
     return (
         <div className="h-full w-full flex">
             {/* Left panel */}
@@ -53,8 +92,7 @@ const UploadSong = () => {
 
                     <div className="h-1/2 border-r border-white"></div>
 
-
-                    <TextwithHover displayText={"Upload Song"} />
+                    <TextwithHover displayText="Upload Song" />
 
                     <div className="bg-white w-10 h-10 px-8 flex items-center justify-center rounded-full font-semibold cursor-pointer text-black">
                         DA
@@ -68,19 +106,36 @@ const UploadSong = () => {
                     </div>
                     <div className="w-2/3 flex space-x-3">
                         <div className="w-1/2">
-                    <TextInput label="Name" labelClassName={"text-white"}
-                    placeholder="Name"
-                    />
+                            <TextInput 
+                                label="Name" 
+                                labelClassName="text-white"
+                                placeholder="Name"
+                                value={name}
+                                setValue={setName}
+                            />
                         </div>
                         <div className="w-1/2">
-                    <TextInput label="Thumbnail" labelClassName={"text-white"}
-                    placeholder="Thumbnail"
-                    />
+                            <TextInput 
+                                label="Thumbnail" 
+                                labelClassName="text-white"
+                                placeholder="Thumbnail"
+                                value={thumbnail}
+                                setValue={setThumbnail}
+                            />
                         </div>
                     </div>
-                    <div className="pt-5">
-                            <CloudinaryUpload/>
-                        </div>
+                    <div className="py-5">
+                        {uploadedSongFileName ? (
+                            <div className="bg-white rounded-full p-3 w-1/3">
+                                {uploadedSongFileName.substring(0, 35)}...
+                            </div>
+                        ) : (
+                            <CloudinaryUpload setUrl={setPlaylistUrl} setName={setUploadedSongFileName} />
+                        )}
+                    </div>
+                    <div className="bg-white w-40 flex items-center justify-center p-4 rounded-full cursor-pointer font-semibold" onClick={submitSong}>
+                        Submit Song
+                    </div>
                 </div>
             </div>
         </div>
