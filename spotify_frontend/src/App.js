@@ -7,6 +7,10 @@ import LoggedInHomeComponent from './routes/LoggedInHome';
 import UploadSong from './routes/UploadSong';
 import { useCookies } from 'react-cookie';
 
+// Remove or comment out these lines as they're not needed
+// window.cloudinary = window.cloudinary || {};
+// window.cloudinary.applyUploadWidget = window.cloudinary.createUploadWidget;
+
 function App() {
 
   const[cookie , setCookie] = useCookies(["token"]);

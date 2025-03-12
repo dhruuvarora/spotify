@@ -1,35 +1,71 @@
-import {openUploadWidget} from "../../utils/CloudinaryService";
-import {cloudinary_upload_preset} from "../../config";
+import { useEffect, useState } from 'react';
 
 const CloudinaryUpload = ({setUrl, setName}) => {
-    const uploadImageWidget = () => {
-        let myUploadWidget = openUploadWidget(
-            {
-                cloudName: "dgbxpssni",
-                uploadPreset: cloudinary_upload_preset,
-                sources: ["local"],
-            },
-            function (error, result) {
-                if (!error && result.event === "success") {
-                    setUrl(result.info.secure_url);
-                    setName(result.info.original_filename);
-                } else {
+    const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+
+    useEffect(() => {
+        // Check if script is already loaded
+        if (window.cloudinary) {
+            setIsScriptLoaded(true);
+            return;
+        }
+
+        // If not loaded, create and append the script
+        const script = document.createElement('script');
+        script.src = 'https://upload-widget.cloudinary.com/global/all.js';
+        script.async = true;
+        script.onload = () => setIsScriptLoaded(true);
+        
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
+
+    const upload = () => {
+        console.log("Upload button clicked");
+        if (!isScriptLoaded) {
+            console.log("Waiting for Cloudinary script to load...");
+            return;
+        }
+
+        if (window.cloudinary && window.cloudinary.createUploadWidget) {
+            console.log("Cloudinary widget is available");
+            const myWidget = window.cloudinary.createUploadWidget(
+                {
+                    cloudName: 'dgbxpssni',
+                    uploadPreset: 'v4cloud',
+                    sources: ['local', 'url', 'camera'],
+                    multiple: false,
+                    folder: 'spotify_clone',
+                    resourceType: 'auto'
+                },
+                (error, result) => {
                     if (error) {
-                        console.log(error);
+                        console.error("Upload error:", error);
+                    }
+                    if (!error && result && result.event === "success") {
+                        console.log('Done! Here is the file info: ', result.info);
+                        setUrl(result.info.secure_url);
+                        setName(result.info.original_filename);
                     }
                 }
-            }
-        );
-        myUploadWidget.open();
+            );
+            myWidget.open();
+        } else {
+            console.error("Cloudinary widget is not loaded yet. window.cloudinary =", window.cloudinary);
+        }
     };
 
     return (
-        <button
-            className="bg-white text-black  rounded-full p-4 font-semibold"
-            onClick={uploadImageWidget}
+        <div 
+            className="bg-white w-40 flex items-center justify-center p-4 rounded-full cursor-pointer font-semibold"
+            onClick={upload}
+            style={{ cursor: isScriptLoaded ? 'pointer' : 'not-allowed' }}
         >
-            Select Track
-        </button>
+            {isScriptLoaded ? 'Select Track' : 'Loading...'}
+        </div>
     );
 };
 
