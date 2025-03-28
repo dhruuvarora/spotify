@@ -1,11 +1,15 @@
-const TextwithHover = ({ displayText , active}) => {
+const TextWithHover = ({displayText, active}) => {
     return (
-        <div className="flex items-center justify-start gap-3 px-3 py-2 cursor-pointer ">
-            <div className={`${active?"text-white":"text-gray-400"} font-semibold text-lg hover:text-white `}>
+        <div className="flex items-center justify-start cursor-pointer">
+            <div
+                className={`${
+                    active ? "text-white" : "text-gray-500"
+                } font-semibold hover:text-white`}
+            >
                 {displayText}
             </div>
         </div>
     );
 };
 
-export default TextwithHover;
+export default TextWithHover;
