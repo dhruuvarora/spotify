@@ -4,7 +4,7 @@ import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import CloudinaryUpload from "../components/shared/CloudinaryUpload";
 import IconText from "../components/shared/IconText";
 import TextInput from "../components/shared/TextInput";
-import TextWithHover from "../components/shared/TextwithHover";
+import TextWithHover from "../components/shared/TextWithHover";
 import {makeAuthenticatedPOSTRequest} from "../utils/serverHelpers";
 import {useNavigate} from "react-router-dom";
 

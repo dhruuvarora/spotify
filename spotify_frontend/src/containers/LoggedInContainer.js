@@ -1,9 +1,9 @@
 import {useContext, useState, useLayoutEffect, useRef} from "react";
-import {Howl} from "howler";
+import {Howl, Howler} from "howler";
 import {Icon} from "@iconify/react";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
-import TextWithHover from "../components/shared/TextwithHover";
+import TextWithHover from "../components/shared/TextWithHover";
 import songContext from "../contexts/songContext";
 import CreatePlaylistModal from "../modals/CreatePlaylistModal";
 import AddToPlaylistModal from "../modals/AddToPlaylistModal";
