@@ -1,37 +1,48 @@
-import {backendURL} from './config';
+import {backendUrl} from "./config";
 
-export const makeUnauthenticatedPOSTrequest = async(route , body) => {
-    const response = await fetch(backendURL +route, {
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
+export const makeUnauthenticatedPOSTRequest = async (route, body) => {
+    const response = await fetch(backendUrl + route, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
         },
-        body:JSON.stringify(body),
+        body: JSON.stringify(body),
     });
-    const formattedresponse = await response.json();
-    return formattedresponse;
+    const formattedResponse = await response.json();
+    return formattedResponse;
 };
 
-export const makeAuthenticatedPOSTRequest = async(route , body) => {
-
+export const makeAuthenticatedPOSTRequest = async (route, body) => {
     const token = getToken();
-
-    const response = await fetch(backendURL +route, {
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
-            "Authorization" : `Bearer ${token}`,
+    const response = await fetch(backendUrl + route, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
         },
-        body:JSON.stringify(body),
+        body: JSON.stringify(body),
     });
-    const formattedresponse = await response.json();
-    return formattedresponse;
+    const formattedResponse = await response.json();
+    return formattedResponse;
 };
 
-const getToken = () =>{
-   
+export const makeAuthenticatedGETRequest = async (route) => {
+    const token = getToken();
+    const response = await fetch(backendUrl + route, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const formattedResponse = await response.json();
+    return formattedResponse;
+};
+
+const getToken = () => {
     const accessToken = document.cookie.replace(
-         /(?:(?:^|.*;\s*)token\s* = \s*([^;]*).*$)|^.*$/,"$1"
+        /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
+        "$1"
     );
-    return accessToken
-}
+    return accessToken;
+};
